@@ -13,7 +13,7 @@ __SYD.sideNav = () =>{
         },
         [
             __SYD.sideMenu(),
-            __SYD.getPro(),
+            // __SYD.getPro(),
             __SYD.binascopeDex(),
             __SYD.binascopeAi(),
             __SYD.feedbackBtn(),
@@ -101,8 +101,11 @@ __SYD.binascopeAi = function()
                 {
                     if(__p([DOMS[i],"display"]))
                     {
-                        //update latest screen
-                        updateState({name:"binascopeDex",prop:"latest",value:DOMS[i]});
+                        if(__p(["binascopeDex","latest"]) === null)
+                        {
+                            //update latest screen
+                            updateState({name:"binascopeDex",prop:"latest",value:DOMS[i]});
+                        }
                     }
 
                     if(DOMS[i] === id)
@@ -134,7 +137,7 @@ __SYD.binascopeDex = function()
             createState:{
                 stateName:"binascopeDex",
                 state:{
-                    latest:""
+                    latest:null
                 }
             },
             events:{onclick:()=>{
@@ -153,6 +156,8 @@ __SYD.binascopeDex = function()
                             if(__p([DOMS[i],"display"])) updateState({name:DOMS[i],prop:"display",value:false})
                         }
                     }
+
+                    updateState({name:"binascopeDex",prop:"latest",value:null});
                 }
             }}
         }

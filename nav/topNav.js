@@ -86,7 +86,7 @@ __SYD.topNav = function(){
                     mobile:false,
                     navOption:"live",
                     mobileTog:false,
-                    swtch:{wallet:"walletDashboard",analytic:"walletAnalytics",scan:"contract",token:"insight",trend:"trend" , live:"live"}
+                    swtch:{wallet:"walletDashboard",analytic:"walletAnalytics",scan:"contract",token:"insight",trend:"trend" , live:"live" , aiPage:"binascopeAi_page"}
                 }
             },
             mediaQuery:{
