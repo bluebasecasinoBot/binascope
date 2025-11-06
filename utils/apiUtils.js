@@ -128,12 +128,12 @@ export const fetchToken_api__post = async({url,body}) =>{
 }
 
 export const fetchTokens_trending = async () =>{
-    const data = await fetchToken_api__get({url:SYD_VAR.fetchTrendingToken.get()});
+    const data = await fetchToken_api__get({url:`https://serverproxy6.fly.dev/tokens?type=trend`});
     console.log(data)
 
     if(data !== null)
     {
-        const trendingTokens = data.coins.map(c => {
+        const trendingTokens = data.data.coins.map(c => {
             return {
                 name:`${c.item.name}`,
                 logoUrl:`${c.item.thumb}`,
@@ -154,16 +154,16 @@ export const fetchTokens_trending = async () =>{
 }
 
 export const fetchTokens_page_mc_volume_price = async({type = "mc"} = {}) =>{
-    const data = await fetchToken_api__get({url:SYD_VAR.fetch_mc_vl_pr.get()[`${type}`]});
+    const data = await fetchToken_api__get({url:`https://serverproxy6.fly.dev/tokens?type=${type}`});
 
     if(data !== null)
     {
         if(type === "price")
         {
-            data.sort((a,b) =>b.current_price - a.current_price);
+            data.data.sort((a,b) =>b.current_price - a.current_price);
         }
 
-        const marketCapTokens = data.map(c =>{
+        const marketCapTokens = data.data.map(c =>{
             return {
                 name:`${c.name}`,
                 logoUrl:`${c.image}`,
