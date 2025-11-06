@@ -5,8 +5,8 @@ import { trimVal, updateState, updateState__bulk } from "../utils/stateAssets.js
 function updateLivePage(pos)
 {
     const cPage = __p(["live","currentPage"],1);
-    if(new Date() - __p(["live","lastUpdated"]) > 10000)
-    {
+    // if(new Date() - __p(["live","lastUpdated"]) > 10000)
+    // {
         if(pos === "left")
         {
             updateState({name:"live",prop:"currentPage",value:cPage < 10 ? cPage+1 : cPage});
@@ -16,10 +16,10 @@ function updateLivePage(pos)
             updateState({name:"live",prop:"currentPage",value:cPage > 1 ? cPage-1 : cPage});
             if(cPage > 0)__p(["live","timely"])()
         }
-    }else {
-        console.log("please try again in a few seconds");
-        __p(["notification","show"])({title:"Rate exceeded (Live trend)",msg:`please try again in ${Math.round((10000 - (new Date() - __p(["live","lastUpdated"])))/1000)}s`,mode:"err"})
-    };
+    // }else {
+    //     console.log("please try again in a few seconds");
+    //     __p(["notification","show"])({title:"Rate exceeded (Live trend)",msg:`please try again in ${Math.round((10000 - (new Date() - __p(["live","lastUpdated"])))/1000)}s`,mode:"err"})
+    // };
 }
 
 __SYD.live = function()
@@ -100,6 +100,7 @@ __SYD.live = function()
                         }
                     }
                     let timer = setInterval(async () => {
+                        console.log("updating")
                         if(__p(["live","display"]))
                         {
                             await __p(["live","appendTokens"])();
@@ -109,7 +110,7 @@ __SYD.live = function()
                                 clearInterval(__p(["live","timer"],null))
                             }   
                         }
-                    }, 1000*60);
+                    }, 1000*15);
                     updateState({name:"live",prop:"timer",value:timer})
                 }}
             },

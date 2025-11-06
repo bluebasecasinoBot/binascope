@@ -627,10 +627,44 @@ export const fetchContractDetails_balance = async(adx , network)=>{
 //cgecko live dashboard
 export const liveTrends = async function ()
 {
-    const data = await fetchToken_api__get({url:`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${__p(["live","currentPage"],1)}&sparkline=false`});
+    // const data = await fetchToken_api__get({url:`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${__p(["live","currentPage"],1)}&sparkline=false`});
+
+    // console.log(data)
+
+    // if(data!==null){
+    //     return data;
+    // }else
+    // {
+    //     console.log("error occured while fetching live trends");
+    //     __p(["notification","show"])({title:"Live trends error",msg:"error occured while fetching live trends",mode:"err"})
+
+    //     return null;
+    // }
+
+    const mapping = {
+        "https://serverproxy1-misty-mountain-6921.fly.dev/":[1 , 2],
+        "https://serverproxy2.fly.dev/":[3 , 4],
+        "https://serverproxy3.fly.dev/":[5 , 6],
+        "https://serverproxy4.fly.dev/":[7 , 8],
+        "https://serverproxy5.fly.dev/":[9 , 10]
+    }
+
+    let server = "";
+
+    for(let i = 0; i < Object.keys(mapping).length; i++)
+    {
+        if(mapping[Object.keys(mapping)[i]].includes(Number(__p(["live","currentPage"],1))))
+        {
+            server = Object.keys(mapping)[i];
+            break;
+        }
+    }
+
+    const data = await fetchToken_api__get({url:`${server}tokens?page=${__p(["live","currentPage"],1)}`});
 
     if(data!==null){
-        return data;
+        console.log("returning data")
+        return data.data;
     }else
     {
         console.log("error occured while fetching live trends");
